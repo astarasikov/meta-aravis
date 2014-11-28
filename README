@@ -1,0 +1,3 @@
+meta-product demonstrates how one's own custom layer can be used to add
+to existing images and thus form an automated build procedure for a 
+custom product.
