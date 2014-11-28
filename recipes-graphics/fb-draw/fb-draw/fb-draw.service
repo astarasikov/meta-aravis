@@ -1,0 +1,11 @@
+[Unit]
+Description=Draws a pattern on fb0, fb1
+After=multi-user.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/fb-draw
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target
