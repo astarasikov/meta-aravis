@@ -1,0 +1,19 @@
+diff --git a/include/configs/colibri_t30.h b/include/configs/colibri_t30.h
+index ffcf88f..b5d889e 100644
+--- a/include/configs/colibri_t30.h
++++ b/include/configs/colibri_t30.h
+@@ -185,12 +185,12 @@
+ 	NFS_BOOTCMD \
+ 	SD_BOOTCMD \
+ 	"setup=setenv setupargs asix_mac=${ethaddr} " \
+-		"consoleblank=0  no_console_suspend=1 console=tty1 " \
++		"consoleblank=0  no_console_suspend=1 " \
+ 		"console=${console},${baudrate}n8 debug_uartport=lsport,0 " \
+ 		"${memargs}\0" \
+ 	"setupdate=load mmc 1:1 ${kernel_addr_r} flash_mmc.img " \
+ 		"&& source ${kernel_addr_r}\0" \
+ 	USB_BOOTCMD \
+-	"vidargs=video=tegrafb0:640x480-16@60\0"
++	"vidargs=video=tegrafb0:800x600-16@60\0"
+ 
+ #endif /* __CONFIG_H */
