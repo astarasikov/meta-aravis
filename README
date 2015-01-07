@@ -2,6 +2,9 @@ meta-product demonstrates how one's own custom layer can be used to add
 to existing images and thus form an automated build procedure for a 
 custom product.
 
+This is additional material to the following article:
+http://embedded-computing.com/articles/leverage-yoctoopenembedded-for-your-embedded-software-deployment/#
+
 This layer requires a working Toradex BSP setup (with meta-toradex),
 see
 http://developer.toradex.com/software-resources/arm-family/linux/board-support-package/openembedded-(core)
