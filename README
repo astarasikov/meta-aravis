@@ -1,3 +1,9 @@
+This is an overlay for Yocto/Angstoem on the Toradex Apalis T30 board.
+It contains the Aravis video capture plugin for GStreamer 0.10.
+
+It is based on the 'meta-product' layer by Toradex.
+===============================================================================
+
 meta-product demonstrates how one's own custom layer can be used to add
 to existing images and thus form an automated build procedure for a 
 custom product.
