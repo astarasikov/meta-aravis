@@ -1,0 +1,16 @@
+#EXTM3U
+#EXT-X-VERSION:3
+#EXT-X-ALLOW-CACHE:NO
+#EXT-X-MEDIA-SEQUENCE:4
+#EXT-X-TARGETDURATION:1
+
+#EXTINF:1,
+http://127.0.0.1:8000/segment3.ts
+#EXTINF:1,
+http://127.0.0.1:8000/segment4.ts
+#EXTINF:1,
+http://127.0.0.1:8000/segment5.ts
+#EXTINF:1,
+http://127.0.0.1:8000/segment6.ts
+#EXTINF:1,
+http://127.0.0.1:8000/segment7.ts
