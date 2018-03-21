@@ -1,6 +1,25 @@
 <html>
 <body>
 
+<label for="offset_x">Overlay offset (X):</label><input id="offset_x" type="number" value="0"/>
+<label for="offset_y">Overlay offset (Y):</label><input id="offset_y" type="number" value="0"/>
+<input type="button" value="Update Overlay" onclick="sendOverlayParams()">
+
+<script>
+function sendOverlayParams()
+{
+	var offset_x = document.getElementById("offset_x").value;
+	var offset_y = document.getElementById("offset_y").value;
+
+	var param_str = "&offset_x=" + offset_x + "&offset_y=" + offset_y;
+	var addr_str = "http://127.0.0.1:8000/update?" + param_str;
+
+	var xhr = new XMLHttpRequest()
+	xhr.open('GET', addr_str, true)
+	xhr.send()
+}
+</script>
+
 <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
 <video id="video"></video>
 <script>
