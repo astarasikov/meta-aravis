@@ -1,0 +1,54 @@
+<html>
+<style>
+
+img {
+  position: absolute;
+  top: 25px;
+  left: 25px;
+}
+
+.img_video {
+	z-index: 1;
+}
+
+.img_overlay {
+	z-index: 3;
+}
+
+</style>
+
+<body>
+
+<label for="offset_x">Overlay offset (X):</label><input id="offset_x" type="number" value="0"/>
+<label for="offset_y">Overlay offset (Y):</label><input id="offset_y" type="number" value="0"/>
+<input type="button" value="Update Overlay" onclick="sendOverlayParams()">
+<input type="button" value="Update Client Overlay" onclick="updateClientOverlay()">
+
+<script>
+function sendOverlayParams()
+{
+	var offset_x = document.getElementById("offset_x").value;
+	var offset_y = document.getElementById("offset_y").value;
+
+	var param_str = "&offset_x=" + offset_x + "&offset_y=" + offset_y;
+	var addr_str = "http://127.0.0.1:8000/update?" + param_str;
+
+	var xhr = new XMLHttpRequest()
+	xhr.open('GET', addr_str, true)
+	xhr.send()
+}
+
+ function updateClientOverlay()
+{
+	var offset_x = document.getElementById("offset_x").value;
+	var offset_y = document.getElementById("offset_y").value;
+	var client_overlay = document.getElementById("img_client_overlay");
+
+	client_overlay.style.left = offset_x;
+	client_overlay.style.top = offset_y;
+}
+</script>
+
+<img class="img_video" src="http://127.0.0.1:8000/mjpg"/>
+<img class="img_overlay" id="img_client_overlay" src="https://image.flaticon.com/icons/png/512/334/334323.png"/>
+</body>
