@@ -122,6 +122,31 @@ class HttpControlHandler(SimpleHTTPRequestHandler):
         g_overlay_params = new_params
         g_http_lock.release()
 
+    def send_jpeg(self, jpg_data):
+        self.wfile.write("--jpgboundary".encode())
+        self.send_header('Content-type', 'image/jpeg')
+        self.send_header('Content-length', str(len(jpg_data)))
+        self.end_headers()
+        self.wfile.write(jpg_data)
+
+    def send_gst_buffer(self, pysink):
+        sample = pysink.emit('pull-sample')
+        buf = sample.get_buffer()
+        (ok, minfo) = buf.map(Gst.MapFlags(1))
+
+        if ok:
+            jpg_data = minfo.data
+            try:
+                self.send_jpeg(jpg_data)
+            except:
+                print("Error sending JPEG data. Client disconnected?")
+                return False
+            finally:
+                buf.unmap(minfo)
+        else:
+            print("failed to map pysink buffer")
+        return True
+
     def do_GET(self):
         print("HTTP GET")
         new_params = self.parse_overlay_params()
@@ -138,24 +163,8 @@ class HttpControlHandler(SimpleHTTPRequestHandler):
 
             pysink = g_custom_pipeline.pipeline.get_by_name('pysink')
 
-            while True:
-                #jpg = self.grabImageData()
-                sample = pysink.emit('pull-sample')
-                buf = sample.get_buffer()
-                (ok, minfo) = buf.map(Gst.MapFlags(1))
-
-                if ok:
-                    jpg_data = minfo.data
-                    self.wfile.write("--jpgboundary".encode())
-                    self.send_header('Content-type', 'image/jpeg')
-                    self.send_header('Content-length', str(len(jpg_data)))
-                    self.end_headers()
-                    self.wfile.write(jpg_data)
-                else:
-                    print("failed to map pysink buffer")
-                
-                buf.unmap(minfo)
-                #self.releaseImageData(jpg)
+            while self.send_gst_buffer(pysink):
+                pass
         else:
             SimpleHTTPRequestHandler.do_GET(self)
 
@@ -190,7 +199,7 @@ if __name__ == "__main__":
     pipeline_obj = CustomPipeline(pipeline_string)
     pipeline_obj.start()
     
-    global g_custom_pipeline
+    #global g_custom_pipeline
     g_custom_pipeline = pipeline_obj
 
     _thread.start_new_thread(HttpControlThreadEntry, ())
