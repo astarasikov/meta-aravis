@@ -28,7 +28,7 @@ aravissrc blocksize=400000 !\
  gdkpixbufoverlay name=test_overlay offset-x=300 offset-y=500 location=/usr/share/icons/nuoveXT2/128x128/devices/computer.png !\
  nvvidconv  !\
  nvjpegenc !\
- appsink name=pysink \
+ appsink name=pysink max-buffers=5 drop=true \
 "
 
 ARAVIS_PIPELINE="\
